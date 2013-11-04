@@ -3,7 +3,7 @@
 # PostgreSQL database in a format suitable for pg_restore
 # Antti Pettinen
 # 31.10.2013
-# 04.10.2013 added OS X Server 3.0 support
+# 04.10.2013 added OS X Server 3.0 support	
 
 # test if run as sudo/root
 if [ $(whoami) != "root" ]; then
@@ -17,7 +17,7 @@ serveradmin stop devicemgr
 # starting postgres
 serveradmin start postgres
 
-# dumppikomennon polku
+# location of the pg_dump command, using instead of OS X pg_dump for compatibility
 PGDUMP=/Applications/Server.app/Contents/ServerRoot/usr/bin/pg_dump
 echo "Dumping the ProfileManager database of OS X Server:"
 
@@ -52,6 +52,8 @@ echo "Saving the Profile Manager database to $DUMPKOHDE"
 # the -c flag is a bit redundant, as the man file says it's best for plain text dumps.. still used just in case
 
 #check the OS X version
+# this is quick and dirty, and assuming that 10.8.x is running 2.2.2 and 10.9 is running 3.0
+# still, does the trick
 
 OSVERSION=$(sw_vers -productVersion)
 if [ "${OSVERSION:0:4}" = "10.9" -o "10.8" ]; then
